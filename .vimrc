@@ -49,9 +49,6 @@ autocmd BufWritePost *.py call Flake8()
 
 
 
-filetyp plugin on
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-
 set hlsearch
 set tabstop=4
 set softtabstop=4
