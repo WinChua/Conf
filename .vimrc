@@ -94,3 +94,14 @@ let g:tmuxline_preset = {
       \'cwin' : ['#I', '#W', '#F'],
       \'y'    : ['%R', '%a', '%Y'],
       \'z'    : '#H'}
+
+function Find(type, word)
+  execute "Shell find . -name '*." . a:type . "' | xargs grep -n " . a:word
+endfunction
+
+function FindT(word)
+  let type = expand('%:e')
+  call Find(type, a:word)
+endfunction
+
+map <C-F> <Esc>:call FindT("<C-R><C-W>")<CR>
