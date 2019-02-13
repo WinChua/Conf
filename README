@@ -1,1 +1,5 @@
-# my vim config
+git clone https://github.com/WinChua/Conf
+
+cd Conf
+
+make bootstrap

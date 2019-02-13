@@ -18,7 +18,7 @@ function SimpleCI {
     echo ${s}
     while true
     do
-        until n=$($getidentity)
+        until n=$($getidentity 2>/dev/null)
         do : ;
         done
         sleep 0.1
@@ -27,7 +27,8 @@ function SimpleCI {
             continue
         fi
         s=${n}
-        echo "---------------------$getidentity changed-----------------------"
+        clear
+        echo "---------------------$getidentity changed $build cost-----------------------"
         time $build  && echo "---------------------$exe "$@" start-----------------------" && time ./$exe "$@"
         echo "---------------------$exe "$@" end-----------------------"
     done
