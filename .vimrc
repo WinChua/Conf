@@ -15,7 +15,8 @@ set nocompatible
 filetype off 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" Plugin 'Valloric/YouCompleteMe'
+Plugin 'fatih/vim-go'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'morhetz/gruvbox'
@@ -27,7 +28,9 @@ Plugin 'vim-ctrlspace/vim-ctrlspace'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-airline/vim-airline'
 Plugin 'itchyny/lightline.vim'
-Plugin 'edkolev/tmuxline.vim'
+" Plugin 'edkolev/tmuxline.vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
 call vundle#end()
 filetype plugin indent on
 
@@ -104,4 +107,21 @@ function FindT(word)
   call Find(type, a:word)
 endfunction
 
-map <C-F> <Esc>:call FindT("<C-R><C-W>")<CR>
+" map <C-F> <Esc>:call FindT("<C-R><C-W>")<CR>
+map <C-F> <Esc>:YcmCompleter GoToReferences<CR>
+
+command! JsonFormat :execute '%!python -m json.tool'
+\ | :execute '%!python -c "import re,sys;chr=__builtins__.__dict__.get(\"unichr\", chr);sys.stdout.write(re.sub(\"\\\\\\\\u[0-9a-f]{4}\", lambda x: chr(int(\"0x\" + x.group(0)[2:], 16)), sys.stdin.read()))"'
+\ | :set ft=javascript
+\ | :1
+set encoding=utf8
+
+nn \] <Esc>:NERDTree %:p:h<CR>
+nn <F5> <Esc>:!echo 'cd %:p:h;source ~/.bashrc; make' > /tmp/next.dir && bash  --init-file /tmp/next.dir <CR>
+
+nn <C-G>d <Esc>:Gdiffsplit<CR>
+nn <C-G>s <Esc>:G<CR>
+nn <C-G>p <Esc>:Git push<CR>
+let g:go_fmt_command = "goimports"
+
+nn <C-G>g <Esc>:!go get <C-R><C-F><cr>
